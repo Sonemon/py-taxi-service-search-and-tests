@@ -40,8 +40,6 @@ class SearchMixin:
                     **{f"{self.model_search_field}__icontains": query}
                 )
                 return filtered_queryset
-                # return queryset.filter(
-                # **{f"{self.model_search_field}__icontains": query})
         return queryset
 
 
@@ -98,23 +96,6 @@ class CarListView(LoginRequiredMixin, SearchMixin, generic.ListView):
     queryset = Car.objects.select_related("manufacturer")
     search_placeholder = "Search by model"
     model_search_field = "model"
-
-    # def get_context_data(self, *, object_list=None, **kwargs):
-    #     context = super(CarListView, self).get_context_data(**kwargs)
-    #     query = self.request.GET.get("query", "")
-    #     context["search_form"] = SearchForm(
-    #         initial={"query": query},
-    #         placeholder="Search by model"
-    #     )
-    #     return context
-    #
-    # def get_queryset(self):
-    #     queryset = self.queryset
-    #     form = SearchForm(self.request.GET, placeholder="Search by model")
-    #     if form.is_valid():
-    #         return queryset.filter(
-    #         model__icontains=form.cleaned_data["query"])
-    #     return queryset
 
 
 class CarDetailView(LoginRequiredMixin, generic.DetailView):
